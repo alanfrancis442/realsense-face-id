@@ -9,6 +9,10 @@ How to run the capture code is in the [README](../README.md) and [capture.md](ca
 **Camera:** Intel RealSense D435, serial `236422073835`, firmware `5.17.3.10`, USB id `8086:0b07`
 **Machines:** the x86_64 Linux laptop, which is where entries through 2026-10-19 were made. Ameen's Windows laptop (host `ameenas`) is a second machine: the 2026-10-22 recordings and `eval.far_frr` runs were made there, with this same D435 plugged in. `data/raw` and `data/eval` on the two laptops are not the same files. Do not copy one onto the other. `p001/s1` on Ameen's laptop is a different person from Alan's 18 October `p001/s1` on the Linux laptop. Raspberry Pi 4 is the PRD's eventual target and is out of scope for now.
 
+## 2026-10-29 — Use an advertised D435 profile
+
+The connected D435 (serial `236422073835`, firmware `5.17.3.10`) was detected, but the API preview stayed unavailable because the configured 848×480 at 30 fps stream combination could not be resolved. The camera advertises 640×480 at 30 fps for depth, left IR, and RGB. The default is now 640×480 at 30 fps so all three requested streams can start together.
+
 ---
 
 ## 2026-10-05 — Start

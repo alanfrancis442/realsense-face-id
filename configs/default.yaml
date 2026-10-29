@@ -7,7 +7,8 @@
 # match.frames_required is the number of laser-off faces one attempt must embed,
 # and agree_frac the share of them whose own top match must be the same person
 # (face/match.py). threshold is still the PRD starting value, not tuned.
-camera: {width: 848, height: 480, fps: 30, depth_units: 0.0001, auto_exposure_limit_us: 3000, rgb: true}
+# The attached D435 advertises 640x480 at 30 fps across depth, IR, and RGB.
+camera: {width: 640, height: 480, fps: 30, depth_units: 0.0001, auto_exposure_limit_us: 3000, rgb: true}
 quality: {min_dist_m: 0.10, max_dist_m: 0.60, min_face_px: 80, max_hole_frac: 0.2}
 liveness: {relief_min_m: 0.015, relief_max_m: 0.08, flat_max_m: 0.005, nose_cheek_min_m: 0.008, model_threshold: 0.5, frames_required: 5}
 match: {threshold: 0.45, unknown_label: "unknown", frames_required: 3, agree_frac: 0.6}
