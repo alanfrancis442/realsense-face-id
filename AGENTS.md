@@ -21,12 +21,9 @@ Python 3.12 via `uv`; the project is not a package (`[tool.uv] package = false`)
 so modules run from the repo root with `python -m`.
 
 ```bash
-uv sync                                   # install
 uv run python -m face.models              # fetch embedding models (not in git)
 uv run --group export python -m face.adaface_export   # AdaFace ONNX from its PyTorch weights (once)
-uv run pytest                             # all tests, no camera needed
 uv run pytest tests/test_liveness.py::test_flat_print_is_rejected   # one test
-uv run ruff check . && uv run ruff format .       # lint / format
 
 uv run python -m capture.realsense_stream # live IR + depth preview (needs D435)
 uv run python -m liveness.watch           # live liveness overlay
@@ -68,7 +65,6 @@ The pipeline is capture → detect/align → quality gate → liveness → ident
   DoorController` walks the PRD states, re-locks after `door.unlock_seconds`
   and locks out after `door.max_failures` counted failures (wrong shape,
   unknown face, disagreeing frames). `relay.MockRelay` only logs.
-- **`logging_/access_log.py`**: every attempt in SQLite `access_events`.
 - **`api/`**: FastAPI, RealSenseID-REST layout — `/v1` routers (auth, users,
   preview, device) over one shared `CameraHub` (`api/services/camera.py`) that
   owns the single pipeline and a ring of recent frames. PRD-named aliases
@@ -78,7 +74,6 @@ The pipeline is capture → detect/align → quality gate → liveness → ident
   access log (`GET /v1/auth/log`, admin) and the gallery file
   (`FACE_ID_GALLERY`, re-read when it changes). Until `enroll/` exists the
   gallery comes from recorded takes via `enroll.from_takes`.
-- **`web/`**: Astro console that proxies `/v1`, `/health`, `/authenticate`, `/admin` to the API.
 - **`configs/default.yaml`** holds every threshold. `capture/config.py`
   requires all sections (`camera`, `quality`, `liveness`, `match`, `door`,
   `filters`, `emitter`, `preview`, `guide`) even if unused yet.
